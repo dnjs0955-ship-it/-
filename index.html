@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌿 생태 & 환경 퀴즈 게임</title>
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+    }
+    body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #a8e6cf, #56ab2f);
+        background-size: 400% 400%;
+        animation: gradientMove 12s ease infinite;
+        color: #fff;
+    }
+    @keyframes gradientMove {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+    .quiz-container {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(15px);
+        padding: 2.5rem;
+        border-radius: 20px;
+        width: 90%;
+        max-width: 600px;
+        text-align: center;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        animation: fadeIn 1s ease;
+    }
+    @keyframes fadeIn {
+        from {opacity: 0; transform: translateY(20px);}
+        to {opacity: 1; transform: translateY(0);}
+    }
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+    }
+    .question {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+    .options {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+    button.option {
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        padding: 0.8rem 1rem;
+        border-radius: 10px;
+        color: #fff;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    button.option:hover {
+        background: rgba(255,255,255,0.4);
+        transform: scale(1.03);
+    }
+    .next-btn {
+        margin-top: 1.5rem;
+        background: #2ecc71;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 12px;
+        font-size: 1rem;
+        color: #fff;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    .next-btn:hover {
+        background: #27ae60;
+    }
+    .score {
+        font-size: 1.3rem;
+        margin-top: 1.2rem;
+    }
+    .restart-btn {
+        background: #3498db;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 12px;
+        font-size: 1rem;
+        color: #fff;
+        cursor: pointer;
+        margin-top: 1.5rem;
+    }
+    .restart-btn:hover {
+        background: #2980b9;
+    }
+</style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h1>🌎 생태 & 환경 퀴즈</h1>
+    <div id="quiz">
+        <p class="question">문제가 여기에 표시됩니다.</p>
+        <div class="options"></div>
+        <button class="next-btn" style="display:none;">다음 문제 ➜</button>
+    </div>
+</div>
+
+<script>
+const quizData = [
+    { question: "지구 평균 기온 상승의 주요 원인은 무엇일까요?",
+      options: ["이산화탄소 증가", "태양 폭발", "지각 이동", "오존층 회복"],
+      answer: "이산화탄소 증가" },
+    { question: "플라스틱이 자연에서 완전히 분해되는 데 걸리는 시간은?",
+      options: ["5년", "50년", "500년 이상", "1,000년 이상"],
+      answer: "500년 이상" },
+    { question: "기후 변화로 인해 북극에서 가장 위협받는 동물은?",
+      options: ["북극곰", "펭귄", "사자", "코끼리"],
+      answer: "북극곰" },
+    { question: "다음 중 재생 가능한 에너지는?",
+      options: ["석탄", "석유", "태양열", "천연가스"],
+      answer: "태양열" },
+    { question: "바다의 산성화를 일으키는 주요 원인은?",
+      options: ["이산화탄소 흡수", "해류 변화", "플라스틱 쓰레기", "기름 유출"],
+      answer: "이산화탄소 흡수" },
+    { question: "다음 중 탄소 배출을 줄이는 방법이 아닌 것은?",
+      options: ["대중교통 이용", "식물 심기", "에어컨 장시간 가동", "자전거 타기"],
+      answer: "에어컨 장시간 가동" },
+    { question: "‘제로 웨이스트’의 의미는?",
+      options: ["쓰레기를 최소화하는 생활 방식", "모든 쓰레기를 태우는 정책", "재활용 금지", "음식물 쓰레기만 줄이기"],
+      answer: "쓰레기를 최소화하는 생활 방식" },
+    { question: "환경오염 중 ‘대기오염’의 주요 원인이 아닌 것은?",
+      options: ["자동차 배기가스", "공장 연기", "태양 복사", "화석연료 사용"],
+      answer: "태양 복사" },
+    { question: "나무 한 그루가 1년에 흡수하는 이산화탄소 양은?",
+      options: ["약 10kg", "약 20kg", "약 50kg", "약 100kg"],
+      answer: "약 20kg" },
+    { question: "지속 가능한 발전(SDGs)의 핵심 목표 중 하나는?",
+      options: ["기아 종식", "산업 성장만 추구", "인간 중심 개발", "자원 무제한 사용"],
+      answer: "기아 종식" }
+];
+
+let currentIndex = 0;
+let score = 0;
+let shuffled = [...quizData].sort(() => Math.random() - 0.5);
+
+const questionEl = document.querySelector(".question");
+const optionsEl = document.querySelector(".options");
+const nextBtn = document.querySelector(".next-btn");
+const quizContainer = document.querySelector(".quiz-container");
+
+function loadQuestion() {
+    const current = shuffled[currentIndex];
+    questionEl.textContent = `${currentIndex + 1}. ${current.question}`;
+    optionsEl.innerHTML = "";
+    current.options.forEach(option => {
+        const btn = document.createElement("button");
+        btn.classList.add("option");
+        btn.textContent = option;
+        btn.onclick = () => selectAnswer(btn, current.answer);
+        optionsEl.appendChild(btn);
+    });
+}
+
+function selectAnswer(selectedBtn, correctAnswer) {
+    const buttons = document.querySelectorAll(".option");
+    buttons.forEach(btn => btn.disabled = true);
+    if (selectedBtn.textContent === correctAnswer) {
+        selectedBtn.style.background = "rgba(46, 204, 113, 0.8)";
+        score++;
+    } else {
+        selectedBtn.style.background = "rgba(231, 76, 60, 0.8)";
+        buttons.forEach(btn => {
+            if (btn.textContent === correctAnswer) {
+                btn.style.background = "rgba(52, 152, 219, 0.8)";
+            }
+        });
+    }
+    nextBtn.style.display = "block";
+}
+
+nextBtn.addEventListener("click", () => {
+    currentIndex++;
+    if (currentIndex < shuffled.length) {
+        nextBtn.style.display = "none";
+        loadQuestion();
+    } else {
+        showResult();
+    }
+});
+
+function showResult() {
+    quizContainer.innerHTML = `
+        <h1>결과 🎉</h1>
+        <p class="score">당신의 점수는 <strong>${score} / ${shuffled.length}</strong> 입니다!</p>
+        <p>${score >= 8 ? "🌿 훌륭해요! 환경 지식이 매우 풍부하네요!" :
+           score >= 5 ? "🌱 괜찮아요! 조금 더 관심을 가져볼까요?" :
+           "🍂 더 배우면 지구가 기뻐할 거예요!"}</p>
+        <button class="restart-btn">다시 시작</button>
+    `;
+    document.querySelector(".restart-btn").addEventListener("click", restartQuiz);
+}
+
+function restartQuiz() {
+    score = 0;
+    currentIndex = 0;
+    shuffled = [...quizData].sort(() => Math.random() - 0.5);
+    quizContainer.innerHTML = `
+        <h1>🌎 생태 & 환경 퀴즈</h1>
+        <div id="quiz">
+            <p class="question"></p>
+            <div class="options"></div>
+            <button class="next-btn" style="display:none;">다음 문제 ➜</button>
+        </div>
+    `;
+    questionEl = document.querySelector(".question");
+    optionsEl = document.querySelector(".options");
+    nextBtn = document.querySelector(".next-btn");
+    nextBtn.addEventListener("click", () => {
+        currentIndex++;
+        if (currentIndex < shuffled.length) {
+            nextBtn.style.display = "none";
+            loadQuestion();
+        } else {
+            showResult();
+        }
+    });
+    loadQuestion();
+}
+
+loadQuestion();
+</script>
+
+</body>
+</html>
