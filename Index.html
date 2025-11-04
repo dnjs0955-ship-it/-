@@ -1,0 +1,849 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Re:Green — 다시, 푸르게</title>
+
+  <!-- Google fonts (optional) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+
+  <meta name="description" content="Re:Green — 학생 주도의 환경 실천 비영리 재단. Re:School Green-Up 프로젝트로 학교를 푸르게 만듭니다.">
+
+  <style>
+    :root{
+      --bg:#F6FBF6;
+      --card:#FFFFFF;
+      --accent:#2E7D32; /* deep green */
+      --accent-2:#AED581; /* light green */
+      --muted:#6B7280;
+      --glass: rgba(255,255,255,0.6);
+      --max-width:1100px;
+      --radius:14px;
+      --shadow: 0 6px 20px rgba(12,40,18,0.08);
+      --soft-shadow: 0 8px 30px rgba(28,45,30,0.06);
+    }
+
+    html,body{
+      height:100%;
+      margin:0;
+      background: linear-gradient(180deg, #F9FFF9 0%, var(--bg) 100%);
+      color:#15322A;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      scroll-behavior:smooth;
+    }
+
+    /* Basic layout */
+    header {
+      position:fixed;
+      top:16px;
+      left:50%;
+      transform:translateX(-50%);
+      z-index:60;
+      width:min(95%, var(--max-width));
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.6));
+      padding:8px 14px;
+      border-radius:999px;
+      box-shadow:var(--soft-shadow);
+      backdrop-filter: blur(6px) saturate(120%);
+    }
+
+    .brand {
+      display:flex;
+      gap:12px;
+      align-items:center;
+      text-decoration:none;
+      color:inherit;
+    }
+
+    .logo {
+      width:48px;
+      height:48px;
+      display:grid;
+      place-items:center;
+      border-radius:10px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 6px 18px rgba(46,125,50,0.18);
+      color:white;
+      font-weight:700;
+      font-family:"Playfair Display", serif;
+      font-size:20px;
+    }
+
+    nav {
+      display:flex;
+      gap:8px;
+      align-items:center;
+    }
+
+    nav a {
+      color:var(--muted);
+      text-decoration:none;
+      font-weight:600;
+      padding:8px 12px;
+      border-radius:999px;
+      transition: all .18s ease;
+      font-size:14px;
+    }
+    nav a:hover{ color:var(--accent); transform:translateY(-2px); }
+    nav a.active{ background:rgba(46,125,50,0.08); color:var(--accent); }
+
+    main{
+      margin-top:96px;
+    }
+
+    /* Full-screen sections */
+    section.hero{
+      min-height:100vh;
+      display:grid;
+      grid-template-columns: 1fr min(540px, 48%);
+      align-items:center;
+      gap:36px;
+      width:min(95%, var(--max-width));
+      margin:36px auto;
+    }
+
+    .hero-left{
+      padding:28px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.45));
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(6px);
+    }
+
+    .eyebrow{ font-size:13px; color:var(--accent); font-weight:700; letter-spacing:0.08em; margin-bottom:12px; }
+
+    h1{
+      margin:0 0 12px 0;
+      font-family:"Playfair Display", serif;
+      font-size:40px;
+      line-height:1.05;
+      color:#0F2B21;
+    }
+
+    p.lead{
+      margin:0 0 18px 0;
+      color: #274936;
+      font-size:16px;
+    }
+
+    .cta-row{ display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 16px;
+      border-radius:999px;
+      border:0;
+      cursor:pointer;
+      background:var(--accent);
+      color:white;
+      font-weight:700;
+      box-shadow: 0 8px 24px rgba(46,125,50,0.12);
+    }
+    .btn.secondary{
+      background:transparent;
+      color:var(--accent);
+      border:1px solid rgba(46,125,50,0.12);
+      font-weight:600;
+    }
+
+    .hero-right {
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+
+    .feature-card{
+      background:var(--card);
+      padding:16px;
+      border-radius:12px;
+      box-shadow:var(--shadow);
+    }
+    .feature-card h3{ margin:0 0 8px 0; font-size:18px; }
+    .feature-card p{ margin:0; color:var(--muted); font-size:14px; line-height:1.45; }
+
+    /* Sections as blog style */
+    .section-wrap{
+      width:min(95%, var(--max-width));
+      margin:48px auto;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:18px;
+    }
+
+    section { scroll-margin-top:110px; }
+
+    /* Activities */
+    .activities{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+      gap:16px;
+    }
+    .activity{
+      background: linear-gradient(180deg, rgba(255,255,255,0.85), #FFFFFF);
+      padding:18px;
+      border-radius:14px;
+      box-shadow:var(--shadow);
+      border-left:6px solid rgba(46,125,50,0.06);
+    }
+    .activity h4{ margin:0 0 8px 0; font-size:16px; }
+    .activity p{ margin:0; color:var(--muted); font-size:14px; }
+
+    /* Campaign participation */
+    .campaign {
+      display:grid;
+      grid-template-columns: 1fr 360px;
+      gap:18px;
+      align-items:start;
+    }
+
+    .card{
+      background:var(--card);
+      padding:18px;
+      border-radius:12px;
+      box-shadow:var(--soft-shadow);
+    }
+
+    .progress {
+      height:12px;
+      background: #E6F4EA;
+      border-radius:999px;
+      overflow:hidden;
+      margin-top:8px;
+    }
+    .progress > i{
+      display:block;
+      height:100%;
+      width:46%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      border-radius:999px;
+      transition:width .6s cubic-bezier(.2,.9,.3,1);
+    }
+
+    form .field{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      margin-bottom:12px;
+    }
+    input[type="text"], input[type="email"], textarea, select {
+      padding:10px 12px;
+      border-radius:10px;
+      border:1px solid #E8F1EC;
+      background:#FBFFFB;
+      font-size:14px;
+      outline:none;
+      resize:vertical;
+    }
+    textarea{ min-height:100px; }
+
+    .small { font-size:13px; color:var(--muted); }
+
+    /* Blog list */
+    .posts{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap:16px;
+    }
+    .post{
+      border-radius:12px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      background:linear-gradient(180deg,#fff,#fbfff9);
+      display:flex;
+      flex-direction:column;
+      min-height:160px;
+    }
+    .post .media{
+      height:120px;
+      background:linear-gradient(135deg, rgba(162,197,150,0.9), rgba(234,245,231,0.9));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:white;
+      font-weight:700;
+      font-size:18px;
+    }
+    .post .content{
+      padding:12px;
+    }
+
+    /* donation */
+    .donate-hero{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .donate-amounts{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .pill {
+      padding:8px 14px;
+      border-radius:999px;
+      background:linear-gradient(90deg,#fff,#fbfff9);
+      border:1px solid rgba(46,125,50,0.06);
+      cursor:pointer;
+      font-weight:700;
+    }
+    .pill.active{
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      color:white;
+      box-shadow:0 8px 20px rgba(46,125,50,0.12);
+    }
+
+    footer{
+      padding:36px 0;
+      color:var(--muted);
+      text-align:center;
+      font-size:14px;
+    }
+
+    /* small screens */
+    @media (max-width:900px){
+      section.hero { grid-template-columns: 1fr; }
+      .campaign{ grid-template-columns: 1fr; }
+    }
+
+    /* reveal on scroll */
+    .reveal{
+      opacity:0;
+      transform:translateY(18px);
+      transition: all .7s cubic-bezier(.2,.9,.2,1);
+      will-change:transform,opacity;
+    }
+    .reveal.visible{
+      opacity:1;
+      transform:none;
+    }
+
+    /* floating section indicators */
+    .dots {
+      position:fixed;
+      right:20px;
+      top:50%;
+      transform:translateY(-50%);
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      z-index:60;
+    }
+    .dots button{
+      width:10px;height:10px;border-radius:99px;border:0;background:rgba(15,43,33,0.12);cursor:pointer;
+    }
+    .dots button.active{ background:linear-gradient(180deg,var(--accent),var(--accent-2)); box-shadow:0 6px 18px rgba(46,125,50,0.16) }
+
+    /* small helpers */
+    .muted { color:var(--muted); }
+    .tag { font-size:12px; padding:6px 10px; border-radius:999px; background:#F3FFF2; color:var(--accent); font-weight:700; display:inline-block; }
+  </style>
+</head>
+<body>
+
+  <header aria-label="Main header">
+    <a href="#home" class="brand" onclick="navTo('#home')">
+      <div class="logo" aria-hidden="true">R:G</div>
+      <div style="line-height:1;">
+        <div style="font-weight:700;">Re:Green</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:2px;">다시, 푸르게</div>
+      </div>
+    </a>
+
+    <nav role="navigation" aria-label="Primary navigation">
+      <a href="#home" data-scroll class="active">소개</a>
+      <a href="#activities" data-scroll>핵심활동</a>
+      <a href="#campaign" data-scroll>캠페인참여</a>
+      <a href="#stories" data-scroll>뉴스·스토리</a>
+      <a href="#support" data-scroll>후원</a>
+      <a href="#contact" data-scroll>문의</a>
+    </nav>
+  </header>
+
+  <div class="dots" aria-hidden="true">
+    <button data-target="#home" class="active"></button>
+    <button data-target="#activities"></button>
+    <button data-target="#campaign"></button>
+    <button data-target="#stories"></button>
+    <button data-target="#support"></button>
+    <button data-target="#contact"></button>
+  </div>
+
+  <main id="main">
+    <!-- HERO / INTRO -->
+    <section id="home" class="hero" aria-label="소개 섹션">
+      <div class="hero-left reveal">
+        <div class="eyebrow">Re:Green • 청소년 환경 재단</div>
+        <h1>다시, 푸르게. <br><span style="color:var(--accent)">Re:School Green-Up</span></h1>
+        <p class="lead">학교를 시작으로 일상의 작은 변화를 만들어가는 학생 주도형 환경 실천 프로젝트. 교실, 옥상, 복도까지 — 우리가 만든 작은 초록이 모여 더 큰 희망을 만듭니다.</p>
+
+        <div class="cta-row">
+          <button class="btn" onclick="scrollToId('#campaign')">캠페인 참여하기</button>
+          <button class="btn secondary" onclick="scrollToId('#stories')">성공 스토리 보기</button>
+        </div>
+
+        <div style="margin-top:18px;display:flex;gap:12px;align-items:center;">
+          <div style="display:flex;gap:10px;align-items:center;">
+            <div style="width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:grid;place-items:center;color:white;font-weight:800;">RG</div>
+            <div>
+              <div style="font-weight:700;">현재 참여 학교</div>
+              <div class="small muted">23개 학교 • 1,480명의 학생 참여</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="feature-card reveal">
+          <h3>핵심 활동: Re:School Green-Up</h3>
+          <p>학생들이 직접 기획하고 실행하는 학교 내 친환경 프로젝트. 텃밭 조성, 일회용품-Free 데이, 업사이클 워크숍 등 네 가지 실천 카테고리로 운영됩니다.</p>
+          <div style="display:flex;gap:10px;margin-top:12px;">
+            <span class="tag">학생주도</span>
+            <span class="tag">멘토링 지원</span>
+            <span class="tag">작은보조금</span>
+          </div>
+        </div>
+
+        <div class="feature-card reveal">
+          <h3>웹앱 참여 방식</h3>
+          <p>학교별 대시보드로 실천 기록을 올리고, 배지와 점수로 활동을 축적하세요. 지역별 챌린지에 참여하면 특별 배지도 받을 수 있어요.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACTIVITIES -->
+    <section id="activities" aria-label="핵심활동 섹션">
+      <div class="section-wrap">
+        <div class="reveal">
+          <h2 style="margin-top:4px">핵심 활동</h2>
+          <p class="muted">리:그린의 실천은 단순한 캠페인이 아닙니다. 학교와 학생이 직접 문제를 발견하고 해결하는 '작은 회복'의 연속입니다.</p>
+        </div>
+
+        <div class="activities">
+          <article class="activity reveal" aria-labelledby="act-1">
+            <h4 id="act-1">학교 텃밭 & 생태복원</h4>
+            <p>교내 유휴공간을 작은 생태 공간으로 복원합니다. 텃밭에서 식물을 가꾸며 생태계 이해를 높이고, 수확물을 커뮤니티와 나눕니다.</p>
+          </article>
+
+          <article class="activity reveal" aria-labelledby="act-2">
+            <h4 id="act-2">업사이클링 워크숍</h4>
+            <p>재사용 가능한 재료로 굿즈를 만들고 전시합니다. 학생들이 기획부터 제작까지 참여해 창의적 해결책을 발견합니다.</p>
+          </article>
+
+          <article class="activity reveal" aria-labelledby="act-3">
+            <h4 id="act-3">일회용품-Free 캠페인</h4>
+            <p>학교 매점과 급식에서 플라스틱 사용을 줄이는 실천을 설계하고, 간단한 리서치와 설문을 통해 변화를 추적합니다.</p>
+          </article>
+
+          <article class="activity reveal" aria-labelledby="act-4">
+            <h4 id="act-4">친환경 교육 콘텐츠 제작</h4>
+            <p>학생들이 직접 영상, 카드뉴스, 팟캐스트를 제작해 또래 교육을 진행합니다. 콘텐츠는 재단 사이트와 SNS에 공유됩니다.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAMPAIGN / PARTICIPATE -->
+    <section id="campaign" aria-label="캠페인 참여 섹션">
+      <div class="section-wrap">
+        <div class="reveal">
+          <h2>캠페인 참여</h2>
+          <p class="muted">Re:School Green-Up 캠페인은 간단한 등록만으로 시작할 수 있습니다. 아래의 단계에 따라 참여 신청을 해보세요.</p>
+        </div>
+
+        <div class="campaign">
+          <div>
+            <div class="card reveal">
+              <h3>지금 참여하기</h3>
+              <p class="small muted">아래 신청서를 작성하면 재단에서 멘토링과 소규모 물품 지원 안내를 개별 연락으로 드립니다.</p>
+
+              <form id="joinForm" onsubmit="return handleJoin(event)" style="margin-top:12px;">
+                <div class="field">
+                  <label for="school">학교명</label>
+                  <input id="school" name="school" type="text" required placeholder="예: 서울고등학교">
+                </div>
+
+                <div class="field">
+                  <label for="name">대표 학생 이름</label>
+                  <input id="name" name="name" type="text" required placeholder="이름">
+                </div>
+
+                <div class="field">
+                  <label for="email">연락 이메일</label>
+                  <input id="email" name="email" type="email" required placeholder="you@example.com">
+                </div>
+
+                <div class="field">
+                  <label for="category">희망 실천 카테고리</label>
+                  <select id="category" name="category" required>
+                    <option value="">선택하세요</option>
+                    <option value="restore">Restore - 텃밭/녹지조성</option>
+                    <option value="recycle">Recycle - 수거/업사이클</option>
+                    <option value="rethink">Rethink - 교육/콘텐츠</option>
+                    <option value="reduce">Reduce - 일회용품 감축</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="message">한 줄 소개 (선택)</label>
+                  <textarea id="message" name="message" placeholder="프로젝트 아이디어나 간단한 소개를 적어주세요."></textarea>
+                </div>
+
+                <div style="display:flex;gap:10px;align-items:center;">
+                  <button class="btn" type="submit">신청서 제출</button>
+                  <button type="button" class="btn secondary" onclick="resetForm()">초기화</button>
+                </div>
+
+                <div id="joinResult" style="margin-top:12px;display:none;" class="small muted"></div>
+              </form>
+            </div>
+
+            <div style="height:14px;"></div>
+
+            <div class="card reveal">
+              <h4>진행 중인 챌린지</h4>
+              <p class="small muted">지역별로 진행되는 미니 챌린지에 참여하여 추가 배지를 획득할 수 있습니다.</p>
+              <ul style="margin-top:12px;">
+                <li>가을 텃밭 리뉴얼 챌린지 — 10개교 선발</li>
+                <li>업사이클 마켓 플리마켓 — 교내 전시 지원</li>
+                <li>일회용품-Free 주간 — 참여 배지 지급</li>
+              </ul>
+            </div>
+          </div>
+
+          <aside class="card reveal">
+            <h4>진행 현황</h4>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <div>
+                <div style="font-size:22px;font-weight:800;">46%</div>
+                <div class="small muted">이번 분기 목표 달성률</div>
+              </div>
+              <div style="width:120px;">
+                <div class="progress" aria-hidden="true"><i style="width:46%"></i></div>
+              </div>
+            </div>
+
+            <div style="margin-top:14px;">
+              <div class="small muted">최근 활동</div>
+              <ul style="margin-top:8px;">
+                <li>부산 중앙고 — 교내 텃밭 개장</li>
+                <li>대전 여고 — 업사이클 워크숍 진행</li>
+                <li>서울 북부고 — 일회용 컵 감축 캠페인</li>
+              </ul>
+            </div>
+
+            <div style="margin-top:14px;">
+              <button class="btn" onclick="scrollToId('#activities')">활동 가이드 보기</button>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- STORIES / NEWS -->
+    <section id="stories" aria-label="뉴스와 스토리 섹션">
+      <div class="section-wrap">
+        <div class="reveal">
+          <h2>뉴스 · 스토리</h2>
+          <p class="muted">학생들이 만들어낸 변화의 이야기를 블로그 형식으로 전합니다. 사진, 인터뷰, 사례 연구까지.</p>
+        </div>
+
+        <div class="posts">
+          <!-- post 1 -->
+          <article class="post reveal" role="article" aria-labelledby="post1">
+            <div class="media" aria-hidden="true">텃밭으로 바뀐 옥상</div>
+            <div class="content">
+              <div id="post1" style="font-weight:700">서울 북부고, 옥상 텃밭으로 생태 교실을 만들다</div>
+              <div class="small muted" style="margin-top:6px;">작은 공간을 녹지로 변환하고, 학생들이 월별 생태일지를 기록합니다.</div>
+            </div>
+          </article>
+
+          <!-- post 2 -->
+          <article class="post reveal" role="article" aria-labelledby="post2">
+            <div class="media" aria-hidden="true">업사이클 마켓</div>
+            <div class="content">
+              <div id="post2" style="font-weight:700">업사이클 마켓: 학생들의 새활용 작품 전시</div>
+              <div class="small muted" style="margin-top:6px;">플라스틱을 활용한 조명, 가방 등 실용적 제품을 만들어 지역사회와 나눔.</div>
+            </div>
+          </article>
+
+          <!-- post 3 -->
+          <article class="post reveal" role="article" aria-labelledby="post3">
+            <div class="media" aria-hidden="true">일회용품-Free</div>
+            <div class="content">
+              <div id="post3" style="font-weight:700">일회용품-Free 주간, 변화를 만드는 작은 습관</div>
+              <div class="small muted" style="margin-top:6px;">한 주간의 실천 데이터로 일회용 컵 사용량이 38% 감소했습니다.</div>
+            </div>
+          </article>
+        </div>
+
+        <div style="margin-top:18px;" class="reveal">
+          <a class="btn" href="#" onclick="alert('더 많은 스토리는 곧 추가됩니다.');return false">전체 스토리 보기</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SUPPORT / DONATE -->
+    <section id="support" aria-label="후원 섹션">
+      <div class="section-wrap">
+        <div class="reveal">
+          <h2>후원으로 함께하기</h2>
+          <p class="muted">리:그린은 소규모 보조금과 물품 지원으로 학생들의 활동을 돕습니다. 투명하게 운영되며, 개인/단체 모두 환영합니다.</p>
+        </div>
+
+        <div class="card reveal donate-hero" role="region" aria-label="후원">
+          <div style="flex:1">
+            <h3>작은 후원이 큰 변화를 만듭니다</h3>
+            <p class="small muted">후원은 주로 현장 물품(씨앗, 토양, 화분)과 소규모 운영비에 사용됩니다.</p>
+
+            <div style="margin-top:12px;">
+              <div class="donate-amounts" role="list">
+                <button class="pill" onclick="selectAmount(this,5000)">₩5,000</button>
+                <button class="pill" onclick="selectAmount(this,15000)">₩15,000</button>
+                <button class="pill" onclick="selectAmount(this,50000)">₩50,000</button>
+                <button class="pill" onclick="selectAmount(this,100000)">₩100,000</button>
+                <button class="pill" onclick="selectAmount(this,'custom')">직접입력</button>
+              </div>
+
+              <div id="customInput" style="margin-top:10px;display:none;">
+                <input id="donateCustom" type="text" placeholder="원 단위 숫자 입력" />
+              </div>
+            </div>
+          </div>
+
+          <div style="width:320px;">
+            <div style="background:#fff;padding:14px;border-radius:12px;box-shadow:var(--shadow)">
+              <div style="font-weight:800;font-size:18px;" id="donateSummary">선택 금액: —</div>
+              <div class="small muted" style="margin-top:6px;">후원은 기부영수증 발급이 필요하시다면 이메일로 신청해주세요.</div>
+              <div style="margin-top:12px;display:flex;gap:8px;">
+                <button class="btn" onclick="fakeDonate()">후원하기</button>
+                <button class="btn secondary" onclick="alert('타기관 계좌 이체 안내는 곧 제공됩니다.')">계좌 안내</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" aria-label="문의 섹션">
+      <div class="section-wrap">
+        <div class="reveal">
+          <h2>문의</h2>
+          <p class="muted">프로그램 문의, 언론/협력 제안, 자원봉사 신청 등 아래 양식을 통해 연락주세요.</p>
+        </div>
+
+        <div class="card reveal" style="display:grid;grid-template-columns:1fr 380px;gap:18px;">
+          <div>
+            <form id="contactForm" onsubmit="return handleContact(event)">
+              <div class="field">
+                <label for="cname">이름</label>
+                <input id="cname" type="text" required>
+              </div>
+              <div class="field">
+                <label for="cemail">이메일</label>
+                <input id="cemail" type="email" required>
+              </div>
+              <div class="field">
+                <label for="subject">제목</label>
+                <input id="subject" type="text" required>
+              </div>
+              <div class="field">
+                <label for="cmsg">내용</label>
+                <textarea id="cmsg" required></textarea>
+              </div>
+
+              <div style="display:flex;gap:10px;">
+                <button class="btn" type="submit">보내기</button>
+                <button class="btn secondary" type="button" onclick="document.getElementById('contactForm').reset()">초기화</button>
+              </div>
+
+              <div id="contactResult" style="margin-top:12px;display:none;" class="small muted"></div>
+            </form>
+          </div>
+
+          <aside>
+            <div style="font-weight:700;">사무국 연락처</div>
+            <div class="small muted" style="margin-top:8px;">
+              이메일: <a href="mailto:hello@regreen.org">hello@regreen.org</a><br>
+              전화: 02-0000-0000 (평일 10:00–17:00)<br>
+              주소: 서울특별시 예시구 리그린로 12, 3층
+            </div>
+
+            <div style="margin-top:14px">
+              <div style="font-weight:700;margin-bottom:8px;">뉴스레터 구독</div>
+              <div style="display:flex;gap:8px;">
+                <input id="newsEmail" type="email" placeholder="이메일 입력" style="padding:10px;border-radius:10px;border:1px solid #E8F1EC" />
+                <button class="btn" onclick="subscribe()">구독</button>
+              </div>
+              <div id="subResult" style="margin-top:10px;display:none;" class="small muted"></div>
+            </div>
+
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      © <strong>Re:Green</strong> — 다시, 푸르게. | 비영리재단 | 개인정보처리방침 · 이용약관
+    </footer>
+  </main>
+
+  <script>
+    /* Utility: smooth scroll to id */
+    function scrollToId(id){
+      document.querySelector(id).scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    /* nav links behavior */
+    document.querySelectorAll('nav a[data-scroll]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        e.preventDefault();
+        document.querySelectorAll('nav a').forEach(x=>x.classList.remove('active'));
+        a.classList.add('active');
+        const target = a.getAttribute('href');
+        scrollToId(target);
+      });
+    });
+
+    /* floating dots nav */
+    document.querySelectorAll('.dots button').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const t = btn.dataset.target;
+        scrollToId(t);
+      });
+    });
+
+    /* IntersectionObserver to highlight nav + reveal elements */
+    const sections = Array.from(document.querySelectorAll('main > section'));
+    const navLinks = Array.from(document.querySelectorAll('nav a'));
+    const dots = Array.from(document.querySelectorAll('.dots button'));
+
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          const id = '#' + entry.target.id;
+          // highlight nav
+          navLinks.forEach(link=> link.classList.toggle('active', link.getAttribute('href')===id));
+          dots.forEach(d=> d.classList.toggle('active', d.dataset.target===id));
+        }
+      });
+    }, {threshold: 0.45}); // when nearly half visible
+
+    sections.forEach(s=> io.observe(s));
+
+    // Reveal on scroll
+    const ro = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting) e.target.classList.add('visible');
+      });
+    }, {threshold:0.12});
+
+    document.querySelectorAll('.reveal').forEach(el=> ro.observe(el));
+
+    // Form handlers (simulate submit; no backend)
+    function handleJoin(e){
+      e.preventDefault();
+      const form = e.target;
+      const data = {
+        school: form.school.value.trim(),
+        name: form.name.value.trim(),
+        email: form.email.value.trim(),
+        category: form.category.value,
+        message: form.message.value.trim()
+      };
+      // basic validation done by required fields
+      document.getElementById('joinResult').style.display='block';
+      document.getElementById('joinResult').textContent = '신청이 접수되었습니다 — 사무국에서 3영업일 이내에 연락드립니다. 감사합니다 😊';
+      form.reset();
+      return false;
+    }
+    function resetForm(){ document.getElementById('joinForm').reset(); document.getElementById('joinResult').style.display='none'; }
+
+    function handleContact(e){
+      e.preventDefault();
+      const name = document.getElementById('cname').value.trim();
+      const email = document.getElementById('cemail').value.trim();
+      const subj = document.getElementById('subject').value.trim();
+
+      document.getElementById('contactResult').style.display='block';
+      document.getElementById('contactResult').textContent = `${name}님, 문의가 접수되었습니다. ${email}로 답변드릴게요.`;
+      e.target.reset();
+      return false;
+    }
+
+    // Donation UI
+    let selectedAmount = null;
+    function selectAmount(el, value){
+      document.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));
+      el.classList.add('active');
+      selectedAmount = value;
+      const summary = document.getElementById('donateSummary');
+      if(value === 'custom'){
+        document.getElementById('customInput').style.display='block';
+        summary.textContent = '선택 금액: 직접 입력';
+      } else {
+        document.getElementById('customInput').style.display='none';
+        summary.textContent = '선택 금액: ₩' + value.toLocaleString();
+      }
+    }
+
+    function fakeDonate(){
+      let amount = selectedAmount;
+      if(amount === null){
+        alert('후원 금액을 선택해 주세요.');
+        return;
+      }
+      if(amount === 'custom'){
+        const val = document.getElementById('donateCustom').value.replace(/[^0-9]/g,'').trim();
+        if(!val){ alert('금액을 입력해 주세요.'); return; }
+        amount = parseInt(val,10);
+      }
+      // simulate donation
+      alert('감사합니다! ₩' + amount.toLocaleString() + ' 후원 접수되었습니다. 영수증 요청은 이메일로 문의해주세요.');
+      // reset selection
+      selectedAmount = null;
+      document.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));
+      document.getElementById('donateSummary').textContent = '선택 금액: —';
+      document.getElementById('donateCustom').value = '';
+      document.getElementById('customInput').style.display='none';
+    }
+
+    // newsletter subscribe
+    function subscribe(){
+      const e = document.getElementById('newsEmail').value.trim();
+      if(!e || !e.includes('@')){ document.getElementById('subResult').style.display='block'; document.getElementById('subResult').textContent='올바른 이메일을 입력해주세요.'; return; }
+      document.getElementById('subResult').style.display='block'; document.getElementById('subResult').textContent='감사합니다! 뉴스레터가 구독되었습니다.';
+      document.getElementById('newsEmail').value='';
+    }
+
+    // minor accessibility helpers: keyboard nav for dots
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'ArrowDown' || e.key === 'ArrowUp'){
+        const activeIndex = dots.findIndex(d => d.classList.contains('active'));
+        let next = activeIndex;
+        if(e.key === 'ArrowDown') next = Math.min(dots.length - 1, activeIndex + 1);
+        if(e.key === 'ArrowUp') next = Math.max(0, activeIndex - 1);
+        dots[activeIndex] && dots[activeIndex].classList.remove('active');
+        dots[next] && dots[next].classList.add('active');
+        dots[next] && scrollToId(dots[next].dataset.target);
+      }
+    });
+
+    // Tiny hydration: in case JS disabled, ensure nav anchors work
+    // (no extra code needed)
+
+  </script>
+</body>
+</html>
